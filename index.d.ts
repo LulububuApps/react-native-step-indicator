@@ -203,6 +203,24 @@ interface StepIndicatorStyles {
      * @memberof StepIndicatorStyles
      */
     labelSize?: number
+
+    /**
+     * Opacity for the labels
+     *
+     * @default 1
+     * @type {number}
+     * @memberof StepIndicatorStyles
+     */
+    currentStepIndicatorLabelOpacity?: number
+
+    /**
+     * Opacity for the labels
+     *
+     * @default 1
+     * @type {number}
+     * @memberof StepIndicatorStyles
+     */
+    stepIndicatorLabelOpacity?: number
 }
 
 interface StepIndicatorProps {

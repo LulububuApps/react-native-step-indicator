@@ -20,6 +20,7 @@ export default class StepIndicator extends PureComponent {
         }
 
         const defaultStyles = {
+            currentStepIndicatorLabelOpacity:  1,
             stepIndicatorSize:                 30,
             currentStepIndicatorSize:          40,
             separatorStrokeWidth:              3,
@@ -40,12 +41,14 @@ export default class StepIndicator extends PureComponent {
             stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
             labelColor:                        '#000000',
             labelSize:                         13,
-            currentStepLabelColor:             '#4aae4f'
+            currentStepLabelColor:             '#4aae4f',
+            stepIndicatorLabelOpacity:         0,
         };
 
         this.customStyles     = Object.assign(defaultStyles, props.customStyles);
         this.progressAnim     = new Animated.Value(0)
         this.sizeAnim         = new Animated.Value(this.customStyles.stepIndicatorSize);
+        this.fontOpacityAnim  = new Animated.Value(this.customStyles.stepIndicatorLabelOpacity);
         this.fontSizeAnim     = new Animated.Value(this.customStyles.stepIndicatorLabelFontSize);
         this.borderRadiusAnim = new Animated.Value(this.customStyles.stepIndicatorSize / 2);
     }
@@ -261,6 +264,7 @@ export default class StepIndicator extends PureComponent {
                     borderRadius:    this.borderRadiusAnim
                 };
                 indicatorLabelStyle = {
+                    opacity:    this.fontOpacityAnim,
                     fontSize:   this.fontSizeAnim,
                     fontFamily: this.customStyles.currentStepIndicatorLabelFont,
                     color:      this.customStyles.stepIndicatorLabelCurrentColor
@@ -280,6 +284,7 @@ export default class StepIndicator extends PureComponent {
                                      ) / 2
                 };
                 indicatorLabelStyle = {
+                    opacity:  this.customStyles.stepIndicatorLabelOpacity,
                     fontSize: this.customStyles.stepIndicatorLabelFontSize,
                     color:    this.customStyles.stepIndicatorLabelFinishedColor
                 };
@@ -298,6 +303,7 @@ export default class StepIndicator extends PureComponent {
                                      ) / 2
                 };
                 indicatorLabelStyle = {
+                    opacity:  this.customStyles.stepIndicatorLabelOpacity,
                     overflow: 'hidden',
                     fontSize: this.customStyles.stepIndicatorLabelFontSize,
                     color:    this.customStyles.stepIndicatorLabelUnFinishedColor
@@ -342,6 +348,7 @@ export default class StepIndicator extends PureComponent {
             )
         ) * position;
         this.sizeAnim.setValue(this.customStyles.stepIndicatorSize);
+        this.fontOpacityAnim.setValue(this.customStyles.stepIndicatorLabelOpacity);
         this.fontSizeAnim.setValue(this.customStyles.stepIndicatorLabelFontSize);
         this.borderRadiusAnim.setValue(this.customStyles.stepIndicatorSize / 2);
         Animated.sequence([
@@ -353,6 +360,10 @@ export default class StepIndicator extends PureComponent {
                 Animated.timing(
                     this.sizeAnim,
                     { toValue: this.customStyles.currentStepIndicatorSize, duration: 100 }
+                ),
+                Animated.timing(
+                    this.fontOpacityAnim,
+                    { toValue: this.customStyles.currentStepIndicatorLabelOpacity, duration: 100 }
                 ),
                 Animated.timing(
                     this.fontSizeAnim,
