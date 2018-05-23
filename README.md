@@ -45,6 +45,7 @@ const customStyles = {
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 13,
   currentStepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFont: 'sans-serif',
   stepIndicatorLabelCurrentColor: '#fe7013',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
