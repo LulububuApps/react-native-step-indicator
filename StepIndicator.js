@@ -46,6 +46,7 @@ export default class StepIndicator extends PureComponent {
         this.customStyles     = Object.assign(defaultStyles, props.customStyles);
         this.progressAnim     = new Animated.Value(0)
         this.sizeAnim         = new Animated.Value(this.customStyles.stepIndicatorSize);
+        this.fontSizeAnim     = new Animated.Value(this.customStyles.stepIndicatorLabelFontSize);
         this.borderRadiusAnim = new Animated.Value(this.customStyles.stepIndicatorSize / 2);
     }
 
@@ -260,7 +261,7 @@ export default class StepIndicator extends PureComponent {
                     borderRadius:    this.borderRadiusAnim
                 };
                 indicatorLabelStyle = {
-                    fontSize:   this.customStyles.currentStepIndicatorLabelFontSize,
+                    fontSize:   this.fontSizeAnim,
                     fontFamily: this.customStyles.currentStepIndicatorLabelFont,
                     color:      this.customStyles.stepIndicatorLabelCurrentColor
                 };
@@ -312,7 +313,7 @@ export default class StepIndicator extends PureComponent {
                     renderStepIndicator ? renderStepIndicator({
                         position,
                         stepStatus: this.getStepStatus(position),
-                    }) : <Text style={indicatorLabelStyle}>{position + 1}</Text>}
+                    }) : <Animated.Text style={indicatorLabelStyle}>{position + 1}</Animated.Text>}
             </Animated.View>
         );
     }
@@ -341,6 +342,7 @@ export default class StepIndicator extends PureComponent {
             )
         ) * position;
         this.sizeAnim.setValue(this.customStyles.stepIndicatorSize);
+        this.fontSizeAnim.setValue(this.customStyles.stepIndicatorLabelFontSize);
         this.borderRadiusAnim.setValue(this.customStyles.stepIndicatorSize / 2);
         Animated.sequence([
             Animated.timing(
@@ -351,6 +353,10 @@ export default class StepIndicator extends PureComponent {
                 Animated.timing(
                     this.sizeAnim,
                     { toValue: this.customStyles.currentStepIndicatorSize, duration: 100 }
+                ),
+                Animated.timing(
+                    this.fontSizeAnim,
+                    { toValue: this.customStyles.currentStepIndicatorLabelFontSize, duration: 100 }
                 ),
                 Animated.timing(
                     this.borderRadiusAnim,
